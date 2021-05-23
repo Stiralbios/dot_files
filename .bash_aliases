@@ -12,6 +12,7 @@ alias ping='ping -c 10'
 alias less='less -R'
 alias cls='clear'
 alias multitail='multitail --no-repeat -c'
+alias emacs='emacs -nw'
 
 # Remove files created by editors
 alias clean='rm -f "#"* "."*~ *~'
