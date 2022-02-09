@@ -16,9 +16,10 @@ alias emacs='emacs -nw'
 
 # Remove files created by editors
 alias clean='rm -f "#"* "."*~ *~'
+alias pyclean_rec='find . -name "*.pyc" -delete'
 
 # recursive find alias
-findrec='find . -name'
+alias findrec='find . -name'
 
 # Change directory aliases
 alias home='cd ~'
@@ -74,27 +75,12 @@ alias untar='tar -xvf'
 alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
 
-# generic extract alias
-function extract () {
-  if [ -f $1 ] ; then
-      case $1 in
-          *.tar.bz2)   tar xvjf $1    ;;
-          *.tar.gz)    tar xvzf $1    ;;
-          *.bz2)       bunzip2 $1     ;;
-          *.rar)       rar x $1       ;;
-          *.gz)        gunzip $1      ;;
-          *.tar)       tar xvf $1     ;;
-          *.tbz2)      tar xvjf $1    ;;
-          *.tgz)       tar xvzf $1    ;;
-          *.zip)       unzip $1       ;;
-          *.Z)         uncompress $1  ;;
-          *.7z)        7z x $1        ;;
-          *)           echo "don't know how to extract '$1'..." ;;
-      esac
-  else
-      echo "'$1' is not a valid file!"
-  fi
-}
+# Alias's for dns
+alias flushdnscache='sudo systemd-resolve --flush-caches'
+alias statdnscache='sudo systemd-resolve --statistic'
+
+# Alias's for pulseaudio
+alias pulseaudio_restart='pulseaudio -k'
 
 # IP address lookup
 alias whatismyip="whatsmyip"
