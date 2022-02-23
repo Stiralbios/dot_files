@@ -2,6 +2,13 @@
 export EDITOR=emacs
 export VISUAL=emacs
 
+# Choose the history size
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+
+# Keep history for all terminals
+export PROMPT_COMMAND='history -a'
+
 # Alias's to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
