@@ -7,7 +7,12 @@ filetype off
 " TODO: Load plugins here (pathogen or vundle)
 
 " Turn on syntax highlighting
-syntax on
+if has("syntax")      "vim-tiny lacks syntax
+  syntax on
+endif
+
+" Command history lenght
+set history=100
 
 " For plugins to load correctly
 filetype plugin indent on
