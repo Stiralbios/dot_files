@@ -23,7 +23,7 @@ alias emacs='emacs -nw'
 
 # Remove files created by editors
 alias clean='rm -f "#"* "."*~ *~'
-alias pyclean_rec='find . -name "*.pyc" -delete'
+alias pyclean='find . -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete'
 
 # recursive find alias
 alias findrec='find . -name'
@@ -89,19 +89,8 @@ alias statdnscache='sudo systemd-resolve --statistic'
 # Alias's for pulseaudio
 alias pulseaudio_restart='pulseaudio -k'
 
-# IP address lookup
-alias whatismyip="whatsmyip"
-function whatsmyip ()
-{
-    # Dumps a list of all IP addresses for every device
-    # /sbin/ifconfig |grep -B1 "inet addr" |awk '{ if ( $1 == "inet" ) { print $2 } else if ( $2 == "Link" ) { printf "%s:" ,$1 } }' |awk -F: '{ print $1 ": " $3 }';
-
-    # Internal IP Lookup
-    echo -n "Internal IP: " ; /sbin/ifconfig eth0 | grep "inet addr" | awk -F: '{print $2}' | awk '{print $1}'
-
-    # External IP Lookup
-    echo -n "External IP: " ; wget http://smart-ip.net/myip -O - -q
-}
+# Add vpn alias
+alias add_openvpn='sudo nmcli connection import type openvpn file'
 
 # get the column passed in args
 function fawk {
@@ -117,8 +106,4 @@ function parse_git_branch() {
 }
 
 export PS1="\u@\h:\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
-
-
-
-
 
