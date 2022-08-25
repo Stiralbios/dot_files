@@ -1,0 +1,5 @@
+[user]
+	name = aurelien
+	email = aurelien.vezin@leakid.com
+[core]
+	autocrlf = input

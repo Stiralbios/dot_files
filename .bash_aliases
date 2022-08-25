@@ -37,6 +37,7 @@ alias ....='cd ../../..'
 alias .....='cd ../../../..'
 
 # Git related
+alias gitperso="GIT_SSH_COMMAND='ssh -i /home/astyan/.ssh/perso -o IdentitiesOnly=yes' git"
 alias gs='git status'
 alias gc='git commit'
 alias ga='git add'
@@ -107,3 +108,6 @@ function parse_git_branch() {
 
 export PS1="\u@\h:\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 
+if [ -f ~/.bash_aliases_leakid ]; then
+    . ~/.bash_aliases_leakid
+fi
