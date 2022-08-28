@@ -28,6 +28,9 @@ alias pyclean='find . -type f -name '*.py[co]' -delete -o -type d -name __pycach
 # recursive find alias
 alias findrec='find . -name'
 
+# now if you are in a screen
+alias screenname='echo $STY'
+
 # Change directory aliases
 alias home='cd ~'
 alias cd..='cd ..'
@@ -106,7 +109,7 @@ function parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-export PS1="\u@\h:\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+export PS1="\[\e[33m\]\u\[\e[30m\]@\[\e[34m\]\h:\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\[\e[31m\] $ \[\e[0m\]"
 
 if [ -f ~/.bash_aliases_leakid ]; then
     . ~/.bash_aliases_leakid
