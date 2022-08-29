@@ -109,7 +109,42 @@ function parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-export PS1="\[\e[33m\]\u\[\e[30m\]@\[\e[34m\]\h:\[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\]\[\e[31m\] $ \[\e[0m\]"
+PROMPT_LONG=40
+PROMPT_MAX=120
+PROMPT_AT=@
+
+__ps1() {
+  local P='$' dir="${PWD##*/}" B countme short long double\
+    r='\[\e[31m\]' g='\[\e[30m\]' h='\[\e[34m\]' \
+    u='\[\e[33m\]' p='\[\e[34m\]' w='\[\033[32m\]' \
+    b='\[\e[36m\]' x='\[\e[0m\]'
+
+  [[ $EUID == 0 ]] && P='#' && u=$r && p=$u # root
+  [[ $PWD = / ]] && dir=/
+  [[ $PWD = "$HOME" ]] && dir='~'
+
+  B=$(git branch --show-current 2>/dev/null)
+  [[ $dir = "$B" ]] && B=.
+  countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
+
+  [[ $B == master || $B == main ]] && b="$r"
+  [[ -n "$B" ]] && B="$g($b$B$g)"
+
+  short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
+  long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
+  double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
+
+  if (( ${#countme} > PROMPT_MAX )); then
+    PS1="$double"
+  elif (( ${#countme} > PROMPT_LONG )); then
+    PS1="$long"
+  else
+    PS1="$short"
+  fi
+}
+
+PROMPT_COMMAND="__ps1"
+
 
 if [ -f ~/.bash_aliases_leakid ]; then
     . ~/.bash_aliases_leakid
