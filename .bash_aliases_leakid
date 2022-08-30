@@ -81,7 +81,6 @@ function lkcontentid__run_frontend {
     cd ~/Sources/Work/LeakID/lk-content-id
     python ./run_frontend.py &
     sleep 5
-    xdotool key ctrl+shift+t
     chromium http://127.0.0.1:5001/
 }
 
