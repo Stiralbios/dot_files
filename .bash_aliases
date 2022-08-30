@@ -142,7 +142,12 @@ function set_git_branch() {
   branch="${branch:2:-1}"
 
   # Set the final branch string.
-  BRANCH="${DARK_GRAY}(${PURPLE}${branch}${DARK_GRAY})${COLOR_NONE}"
+  if [ "$branch" != "" ]
+  then
+    BRANCH="${DARK_GRAY}(${PURPLE}${branch}${DARK_GRAY})${COLOR_NONE}"
+  else
+    BRANCH=""
+  fi
 }
  
 # Return the prompt symbol to use, colorized based on the return value of the
