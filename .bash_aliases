@@ -105,45 +105,83 @@ function fawk {
 }
 
 # Personnalize the prompt
-function parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+
+# The various escape codes that we can use to color our prompt.
+RED="\[\033[0;31m\]"
+YELLOW="\[\033[1;33m\]"
+GREEN="\[\033[0;32m\]"
+BLUE="\[\033[1;34m\]"
+PURPLE="\[\033[0;35m\]"
+LIGHT_RED="\[\033[1;31m\]"
+LIGHT_GREEN="\[\033[1;32m\]"
+WHITE="\[\033[1;37m\]"
+LIGHT_GRAY="\[\033[0;37m\]"
+DARK_BLUE="\[\e[30m\]"
+COLOR_NONE="\[\e[0m\]"
+
+# determine git branch name
+function parse_git_branch(){
+  git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 
-PROMPT_LONG=40
-PROMPT_MAX=120
-PROMPT_AT=@
+# determine mercurial branch name
+function parse_hg_branch(){
+  hg branch 2> /dev/null | awk '{print " (" $1 ")"}'
+}
 
-__ps1() {
-  local P='$' dir="${PWD##*/}" B countme short long double\
-    r='\[\e[31m\]' g='\[\e[30m\]' h='\[\e[34m\]' \
-    u='\[\e[33m\]' p='\[\e[34m\]' w='\[\033[32m\]' \
-    b='\[\e[36m\]' x='\[\e[0m\]'
+# Determine the branch/state information for this git repository.
+function set_git_branch() {
+  # Get the name of the branch.
+  branch=$(parse_git_branch)
+  # if not git then maybe mercurial
+  if [ "$branch" == "" ]
+  then
+    branch=$(parse_hg_branch)
+  fi
+  # remove the first space
+  branch="${branch:2:-1}"
 
-  [[ $EUID == 0 ]] && P='#' && u=$r && p=$u # root
-  [[ $PWD = / ]] && dir=/
-  [[ $PWD = "$HOME" ]] && dir='~'
-
-  B=$(git branch --show-current 2>/dev/null)
-  [[ $dir = "$B" ]] && B=.
-  countme="$USER$PROMPT_AT$(hostname):$dir($B)\$ "
-
-  [[ $B == master || $B == main ]] && b="$r"
-  [[ -n "$B" ]] && B="$g($b$B$g)"
-
-  short="$u\u$g$PROMPT_AT$h\h$g:$w$dir$B$p$P$x "
-  long="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir$B\n$g╚ $p$P$x "
-  double="$g╔ $u\u$g$PROMPT_AT$h\h$g:$w$dir\n$g║ $B\n$g╚ $p$P$x "
-
-  if (( ${#countme} > PROMPT_MAX )); then
-    PS1="$double"
-  elif (( ${#countme} > PROMPT_LONG )); then
-    PS1="$long"
+  # Set the final branch string.
+  BRANCH="${DARK_BLUE}(${PURPLE}${branch}${DARK_BLUE})${COLOR_NONE}"
+}
+ 
+# Return the prompt symbol to use, colorized based on the return value of the
+# previous command.
+function set_prompt_symbol () {
+  if test $1 -eq 0 ; then
+      PROMPT_SYMBOL="${BLUE}\$${COLOR_NONE}"
   else
-    PS1="$short"
+      PROMPT_SYMBOL="${LIGHT_RED}\$${COLOR_NONE}"
   fi
 }
 
-PROMPT_COMMAND="__ps1"
+# Determine active Python virtualenv details.
+function set_virtualenv () {
+  if test -z "$VIRTUAL_ENV" ; then
+      PYTHON_VIRTUALENV=""
+  else
+      PYTHON_VIRTUALENV="${DARK_BLUE}[${PURPLE}`basename \"$VIRTUAL_ENV\"`${DARK_BLUE}]${COLOR_NONE}"
+  fi
+}
+
+# Set the full bash prompt.
+function set_bash_prompt () {
+  # Set the PROMPT_SYMBOL variable. We do this first so we don't lose the
+  # return value of the last command.
+  set_prompt_symbol $?
+
+  # Set the PYTHON_VIRTUALENV variable.
+  set_virtualenv
+
+  # Set the BRANCH variable.
+  set_git_branch
+
+  # Set the bash prompt variable.
+  PS1="${PYTHON_VIRTUALENV}${YELLOW}\u${DARK_BLUE}@${BLUE}\h${DARK_BLUE}:${GREEN}\W${COLOR_NONE}${BRANCH}${PROMPT_SYMBOL} "
+}
+
+# Tell bash to execute this function just before displaying its prompt.
+PROMPT_COMMAND=set_bash_prompt
 
 
 if [ -f ~/.bash_aliases_leakid ]; then
