@@ -116,7 +116,7 @@ LIGHT_RED="\[\033[1;31m\]"
 LIGHT_GREEN="\[\033[1;32m\]"
 WHITE="\[\033[1;37m\]"
 LIGHT_GRAY="\[\033[0;37m\]"
-DARK_BLUE="\[\e[30m\]"
+DARK_GRAY="\[\e[30m\]"
 COLOR_NONE="\[\e[0m\]"
 
 # determine git branch name
@@ -142,7 +142,7 @@ function set_git_branch() {
   branch="${branch:2:-1}"
 
   # Set the final branch string.
-  BRANCH="${DARK_BLUE}(${PURPLE}${branch}${DARK_BLUE})${COLOR_NONE}"
+  BRANCH="${DARK_GRAY}(${PURPLE}${branch}${DARK_GRAY})${COLOR_NONE}"
 }
  
 # Return the prompt symbol to use, colorized based on the return value of the
@@ -160,7 +160,7 @@ function set_virtualenv () {
   if test -z "$VIRTUAL_ENV" ; then
       PYTHON_VIRTUALENV=""
   else
-      PYTHON_VIRTUALENV="${DARK_BLUE}[${PURPLE}`basename \"$VIRTUAL_ENV\"`${DARK_BLUE}]${COLOR_NONE}"
+      PYTHON_VIRTUALENV="${DARK_GRAY}[${PURPLE}`basename \"$VIRTUAL_ENV\"`${DARK_GRAY}]${COLOR_NONE}"
   fi
 }
 
@@ -177,7 +177,7 @@ function set_bash_prompt () {
   set_git_branch
 
   # Set the bash prompt variable.
-  PS1="${PYTHON_VIRTUALENV}${YELLOW}\u${DARK_BLUE}@${BLUE}\h${DARK_BLUE}:${GREEN}\W${COLOR_NONE}${BRANCH}${PROMPT_SYMBOL} "
+  PS1="${PYTHON_VIRTUALENV}${YELLOW}\u${DARK_GRAY}@${BLUE}\h${DARK_GRAY}:${GREEN}\W${COLOR_NONE}${BRANCH}${PROMPT_SYMBOL} "
 }
 
 # Tell bash to execute this function just before displaying its prompt.
