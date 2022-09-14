@@ -87,8 +87,8 @@ alias unbz2='tar -xvjf'
 alias ungz='tar -xvzf'
 
 # Alias's for dns
-alias flushdnscache='resolvectl flush-caches'
-alias statdnscache='resolvectl statistic'
+alias dnscache_flush='resolvectl flush-caches'
+alias dnscache_stats='resolvectl statistics'
 
 # Alias's for pulseaudio
 alias pulseaudio_restart='pulseaudio -k'
