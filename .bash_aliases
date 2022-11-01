@@ -9,6 +9,9 @@ export HISTFILESIZE=10000
 # Keep history for all terminals
 export PROMPT_COMMAND='history -a'
 
+# Pager for color in man and other commands
+export PAGER="most"
+
 # Alias's to modified commands
 alias cp='cp -i'
 alias mv='mv -i'
