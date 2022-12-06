@@ -59,6 +59,9 @@ alias gri='git rebase --interactive'
 alias gcp='git cherry-pick'
 alias grm='git rm'
 
+# Python
+alias venv_activate="source ./venv/bin/activate"
+
 # Search running processes
 alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
