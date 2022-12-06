@@ -195,3 +195,7 @@ PROMPT_COMMAND=set_bash_prompt
 if [ -f ~/.bash_aliases_leakid ]; then
     . ~/.bash_aliases_leakid
 fi
+
+if [ -f ~/.bash_aliases_procsea ]; then
+    . ~/.bash_aliases_procsea
+fi
