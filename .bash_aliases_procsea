@@ -1,0 +1,6 @@
+
+alias procsea_new_build='inv stack --stop; inv stack --rm; inv stack --build'
+
+if [ -f ~/.bash_aliases_procsea_secret ]; then
+    . ~/.bash_aliases_procsea_secret
+fi
