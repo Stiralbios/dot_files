@@ -110,6 +110,9 @@ function fawk {
     eval $cmd
 }
 
+#network
+alias external_ip="curl -s https://httpbin.org/anything | jq -r '.origin'"
+
 # Personnalize the prompt
 
 # The various escape codes that we can use to color our prompt.
