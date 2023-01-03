@@ -113,6 +113,8 @@ function fawk {
 #network
 alias external_ip="curl -s https://httpbin.org/anything | jq -r '.origin'"
 
+alias docker_purge="docker system prune -a && docker volume prune"
+
 # Personnalize the prompt
 
 # The various escape codes that we can use to color our prompt.
