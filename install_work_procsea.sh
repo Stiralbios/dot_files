@@ -5,4 +5,5 @@ cp .bash_aliases_procsea_secret ~/.bash_aliases_procsea_secret
 cp .emacs ~/.emacs
 cp .gitconfig_procsea ~/.gitconfig
 cp .vimrc ~/.vimrc
+cp .inputrc ~/.inputrc
 exec bash -l # load a new shell to get the differences
