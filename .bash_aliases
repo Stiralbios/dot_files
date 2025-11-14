@@ -31,6 +31,8 @@ alias pyclean='find . -type f -name '*.py[co]' -delete -o -type d -name __pycach
 # recursive find alias
 alias findrec='find . -name'
 
+alias loaddotenv='
+
 # now if you are in a screen
 alias screenname='echo $STY'
 
@@ -113,7 +115,19 @@ function fawk {
 #network
 alias external_ip="curl -s https://httpbin.org/anything | jq -r '.origin'"
 
+# docker
 alias docker_purge="docker system prune -a && docker volume prune"
+
+# env
+function loadenv() {
+    if [ -z "$1" ]; then
+        echo "Usage: loadenv <config-file>"
+        return 1
+    fi
+    set -o allexport   # Enable exporting all variables
+    source "$1"        # Source the config file passed as argument
+    set +o allexport   # Disable automatic exporting
+}
 
 # Personnalize the prompt
 
