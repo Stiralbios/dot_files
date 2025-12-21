@@ -4,9 +4,9 @@ export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+# export PYENV_ROOT="$HOME/.pyenv"
+# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+# eval "$(pyenv init - zsh)"
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -78,7 +78,7 @@ ZSH_THEME="blinks"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git aws docker docker-compose dotenv history pip poetry poetry-env pyenv python vscode) # direnv
+plugins=(git docker docker-compose dotenv history pip python vscode direnv)
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -126,4 +126,5 @@ setopt append_history         # append to history file instead of overwriting
 setopt inc_append_history     # incrementally write each command to history file
 # setopt extended_history       # Write the history file in the ":start:elapsed;command" format. Does not work with share history and inc_append_history
 setopt hist_expire_dups_first # remove duplicate commands first
+
 

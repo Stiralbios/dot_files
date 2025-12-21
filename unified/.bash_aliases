@@ -108,4 +108,4 @@ function loadenv() {
 # export PATH="$HOME/.local/bin:$PATH"
 
 
-eval "$(direnv hook bash)"
+# eval "$(direnv hook bash)"
