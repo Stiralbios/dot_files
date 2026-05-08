@@ -128,3 +128,6 @@ setopt inc_append_history     # incrementally write each command to history file
 setopt hist_expire_dups_first # remove duplicate commands first
 
 
+
+# opencode
+export PATH=/home/astyan/.opencode/bin:$PATH
